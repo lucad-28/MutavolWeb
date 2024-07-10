@@ -20,13 +20,20 @@ function App() {
 
   const handleVerify = async () => {
     setResult("");
-    const response = await fetch("http://localhost:5050/verify", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ code: code }),
-    });
+    const response = await fetch(
+      `${
+        import.meta.env.DEV
+          ? import.meta.env.VITE_DEV_SERVER_URL
+          : import.meta.env.VITE_PROD_SERVER_URL
+      }/verify`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ code: code }),
+      }
+    );
     const res = await response.json();
     const { data, sucess } = res;
     if (sucess) {

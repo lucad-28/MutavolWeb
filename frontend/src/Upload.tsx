@@ -26,10 +26,17 @@ export default function Upload({ onResponse }: UploadProps) {
     try {
       const formData = new FormData();
       formData.append("file", file as File);
-      const res = await fetch("http://localhost:5050/upload", {
-        method: "POST",
-        body: formData,
-      });
+      const res = await fetch(
+        `${
+          import.meta.env.DEV
+            ? import.meta.env.VITE_DEV_SERVER_URL
+            : import.meta.env.VITE_PROD_SERVER_URL
+        }/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
       const data = await res.json();
       if (!data.success && data.message) {
         setError(data.message);

@@ -4,13 +4,16 @@ import cors from "cors";
 import path from "path";
 import fs from "fs";
 import multer from "multer";
+import dotenv from "dotenv";
 
-const root = "D:\\React Projects\\MutavolWeb\\Server";
+dotenv.config();
+const static_path = process.env.HTML_PATH;
+const filePath = process.env.TEST_PATH;
 
 const app = express();
 app.use(express.json());
 app.use(cors());
-app.use(express.static(path.join(root, "dist")));
+app.use(express.static(static_path));
 
 //Configuracion guardado local de archivo
 const storage = multer.diskStorage({
@@ -23,12 +26,6 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-
-const filePath = path.join(
-  root,
-  "test",
-  "test_code.cpp"
-);
 
 //Configuracion de ejecucion de parser
 const args = "-i test/test_code.cpp";
