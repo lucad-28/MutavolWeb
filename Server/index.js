@@ -52,7 +52,7 @@ const execParser = (res, error, stdout, stderr, content) => {
 
 //Routes
 app.get("/", (req, res) => {
-  res.sendFile(path.join(root, "dist", "index.html"));
+  res.sendFile(path.join(static_path, "index.html"));
 });
 
 app.post("/verify", (req, res) => {
