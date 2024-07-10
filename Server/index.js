@@ -5,9 +5,12 @@ import path from "path";
 import fs from "fs";
 import multer from "multer";
 
+const root = "D:\\React Projects\\MutavolWeb\\Server";
+
 const app = express();
 app.use(express.json());
 app.use(cors());
+app.use(express.static(path.join(root, "dist")));
 
 //Configuracion guardado local de archivo
 const storage = multer.diskStorage({
@@ -22,7 +25,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 const filePath = path.join(
-  "D:\\React Projects\\MutavolWeb\\Server",
+  root,
   "test",
   "test_code.cpp"
 );
@@ -52,9 +55,7 @@ const execParser = (res, error, stdout, stderr, content) => {
 
 //Routes
 app.get("/", (req, res) => {
-  exec(command, (error, stdout, stderr) => {
-    execParser(res, error, stdout, stderr);
-  });
+  res.sendFile(path.join(root, "dist", "index.html"));
 });
 
 app.post("/verify", (req, res) => {
