@@ -29,7 +29,7 @@ const upload = multer({ storage: storage });
 
 //Configuracion de ejecucion de parser
 const args = "-i test/test_code.cpp";
-const command = `mtv.exe ${args}`;
+const command = `${process.env.MTV_PATH} ${args}`;
 
 const execParser = (res, error, stdout, stderr, content) => {
   if (error) {
